@@ -1,25 +1,26 @@
 {
   "name": "my-portfolio",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@next/font": "^13.4.4",
-    "framer-motion": "^10.12.16",
-    "next": "13.4.3",
-    "react": "18.2.0",
-    "react-countup": "^6.4.2",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.8.0",
-    "react-tsparticles": "^2.9.3",
-    "swiper": "^9.4.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "framer-motion": "^12.23.22",
+    "react": "^19.2.0",
+    "react-countup": "^6.5.3",
+    "react-dom": "^19.2.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.9.3",
+    "react-tsparticles": "^2.12.2",
+    "swiper": "^12.0.2",
     "tailwind-scrollbar": "^3.0.4",
-    "tsparticles": "^2.9.3"
+    "tsparticles": "^3.9.1",
+    "vite": "^7.1.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

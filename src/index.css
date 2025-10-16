@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: 215 35% 20%;
+  --secondary: 218 11% 26%;
+  --accent: 4 80% 55%;
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sora', sans-serif;
+  overflow: hidden;
+}
+
+.page {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.h1 {
+  @apply text-4xl md:text-5xl xl:text-6xl font-extrabold leading-tight;
+}
+
+.h2 {
+  @apply text-3xl md:text-4xl xl:text-5xl font-bold;
+}
+
+@layer components {
+  .input {
+    @apply w-full h-[50px] rounded-lg border border-white/20 focus:border-indigo-500 bg-transparent px-6 py-3 text-white placeholder:text-white/40 outline-none transition-all;
+  }
+
+  .textarea {
+    @apply w-full rounded-lg border border-white/20 focus:border-indigo-500 bg-transparent px-6 py-3 text-white placeholder:text-white/40 outline-none transition-all resize-none h-[180px];
+  }
+
+  .btn {
+    @apply bg-white/10 text-white py-3 px-8 rounded-full hover:bg-indigo-500 transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .translate-z-0 {
+    transform: translateZ(0px);
+  }
+}
+
+/* Swiper pagination styles */
+.swiper-pagination-bullet {
+  @apply bg-white/50;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-accent;
+}
+
+/* Swiper navigation */
+.swiper-button-next,
+.swiper-button-prev {
+  @apply text-white/50 hover:text-indigo-500 transition-colors;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  @apply text-2xl;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--primary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent) / 0.8);
+}
