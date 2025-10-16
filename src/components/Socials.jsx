@@ -5,7 +5,7 @@ const Socials = () => {
   return (
     <div className="flex items-center gap-x-5 md:gap-x-7 text-lg">
       <a
-        href="https://github.com/mine-martin"
+        href="https://github.com/mine-martin-12"
         target="_blank"
         rel="noopener noreferrer"
         className="hover:text-indigo-500 transition-all duration-300 hover:scale-125"

@@ -10,7 +10,7 @@ const Socials = () => {
     <div
       className="flex items-center gap-x-7 text-lg">
       <Link
-        href={'https://github.com/mine-martin'}
+        href={'https://github.com/mine-martin-12'}
         className="hover:text-indigo-500 transition-all duration-300 hover:transition-transform transform hover:scale-150"
       >
         <RiGithubLine />
