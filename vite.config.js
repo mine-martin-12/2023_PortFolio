@@ -7,6 +7,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(async ({ mode }) => {
   const plugins = [react()];
+  if (mode === 'development') {
+    const { componentTagger } = await import('lovable-tagger');
+    plugins.push(componentTagger());
+  }
 
   return {
     plugins,

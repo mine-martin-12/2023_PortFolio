@@ -1,104 +1,42 @@
-import { useCallback } from "react";
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
+import { motion } from 'framer-motion';
+
+// Lightweight decorative floating dots (framer-motion, no external engine)
+const dots = Array.from({ length: 26 }, (_, i) => ({
+  id: i,
+  top: (i * 37) % 100,
+  left: (i * 61) % 100,
+  size: 2 + (i % 4),
+  duration: 6 + (i % 7),
+  delay: (i % 10) * 0.4,
+}));
 
 const ParticlesContainer = () => {
-
-  const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine)
-
-  }, [])
-  const particlesLoaded = useCallback(async () => {
-
-  }, [])
-
   return (
-    <Particles
-      className="w-full h-full absolute translate-z-0"
-      id="tsparticles" init={particlesInit} loaded={particlesLoaded}
-      options={{
-        fullScreen: { enabled: false },
-        background: {
-          color: {
-            value: ""
-          },
-        },
-        fpsLimit: 120,
-        interactivity: {
-          events: {
-            onClick: {
-              enable: false,
-              mode: 'push'
-            },
-            onHover: {
-              enable: true,
-              mode: 'repulse'
-            },
-            resize: true,
-          },
-          modes: {
-            push: {
-              quantity: 100
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4
-            },
-          }
-        },
-        particles: {
-          color: {
-            value: "#e68e2e",
-          },
-          links: {
-            color: "#f5d393",
-            distance: 200,
-            enable: true,
-            opacity: 0.5,
-            width: 1,
-          },
-          collisions: {
-            enabled: true,
-          },
-          // move: {
-          //   directions: "random",
-          //   enabled: true,
-          //   outModes: {
-          //     dafault: 'bounce',
-          //   },
-          //   random: true,
-          //   speed: 2,
-          //   straight: false,
-          // },
-          move: {
-            direction: "random",
-            enable: true,
-            outModes: {
-              default: "bounce",
-            },
-            random: true, // Enable random movement
-            speed: 2, // Adjust the speed of particles
-          },
-          number: {
-            density: {
-              enable: true,
-              area: 800,
-            },
-            value: 100,
-          },
-          opacity: {
-            value: 0.4,
-          },
-          shape: {
-            type: 'circle',
-          },
-          size: {
-            value: { min: 1, max: 6 },
-          },
-        },
-        detectRetina: true,
-      }}
-    />)
-}
+    <div
+      aria-hidden="true"
+      className="w-full h-full absolute inset-0 pointer-events-none translate-z-0"
+    >
+      {dots.map((d) => (
+        <motion.span
+          key={d.id}
+          className="absolute rounded-full bg-indigo-300/40"
+          style={{
+            top: `${d.top}%`,
+            left: `${d.left}%`,
+            width: d.size,
+            height: d.size,
+          }}
+          animate={{ y: [0, -18, 0], opacity: [0.15, 0.7, 0.15] }}
+          transition={{
+            duration: d.duration,
+            delay: d.delay,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default ParticlesContainer;

@@ -1,219 +1,128 @@
-import React from 'react';
-import { useState } from 'react';
-import Circles from '../components/Circles';
-import { motion } from 'framer-motion';
-import { fadeIn } from '../utils/variants';
-import {
-  FaCss3,
-  FaHtml5,
-  FaJs,
-  FaKaggle,
-  FaPython,
-  FaReact,
-  FaFileExcel,
-} from 'react-icons/fa6';
-import {
-  SiFramer,
-  SiNestjs,
-  SiNextdotjs,
-  SiPandas,
-  SiPostgresql,
-} from 'react-icons/si';
 import CountUp from 'react-countup';
-import Bulb from '../components/Bulb';
-
-const aboutData = [
-  {
-    title: 'skills',
-    info: [
-      {
-        title: 'Web Development',
-        icons: [
-          <FaHtml5 key="html5" />,
-          <FaCss3 key="css3" />,
-          <FaJs key="js" />,
-          <FaReact key="react" />,
-          <SiNextdotjs key="nextjs" />,
-          <SiFramer key="framer" />,
-          <SiNestjs key="nest" />,
-        ],
-      },
-      {
-        title: 'Data Science',
-        icons: [
-          <FaPython key="python" />,
-          <SiPandas key="pandas" />,
-          <FaKaggle key="kaggle" />,
-          <FaFileExcel key="excel" />,
-          <SiPostgresql key="psql" />,
-        ],
-      },
-    ],
-  },
-  {
-    title: 'experience',
-    info: [
-      {
-        title: 'Software Developer - Stream4Tech LLC',
-        stage: '2022 Oct - Present',
-      },
-      {
-        title: 'Software Developer - Automata Systems',
-        stage: '2021 Mar - 2021 Sep',
-      },
-      {
-        title: 'Intern - TSMHS Thika',
-        stage: '2019 Jan - 2019 April',
-      },
-    ],
-  },
-  {
-    title: 'credentials',
-    info: [
-      {
-        title: 'Web Development - ABC University, LA, CA',
-        stage: '2011',
-      },
-      {
-        title: 'Computer Science Diploma - AV Technical Institute',
-        stage: '2009',
-      },
-      {
-        title: 'Certified Graphic Designer - ABC Institute, Los Angeles, CA',
-        stage: '2006',
-      },
-    ],
-  },
-];
+import Footer from '../components/Footer';
+import Section, { SectionHeading } from '../components/Section';
+import {
+  profile,
+  stats,
+  skillGroups,
+  experience,
+  education,
+  certificates,
+} from '../data/site';
 
 const About = () => {
-  const [index, setIndex] = useState(0);
-
   return (
-    <div className="h-full bg-primary/30 py-24 md:py-32 text-center xl:text-left overflow-y-auto">
-      <Circles />
+    <div className="relative overflow-hidden pt-28 md:pt-32">
+      <div className="bg-orb absolute -top-20 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none" />
+      <div className="bg-orb absolute top-1/2 -right-24 w-[380px] h-[380px] rounded-full pointer-events-none opacity-60" />
 
-      <div className="container mx-auto h-full flex flex-col items-center xl:flex-row gap-x-6 px-4">
-        {/* text */}
-        <div className="flex-1 flex flex-col justify-center">
-          <motion.h2
-            variants={fadeIn('down', 0.2)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="h2"
-          >
-            Captivating<span className="text-indigo-500"> stories</span> birth
-            magnificent design.
-          </motion.h2>
-          <motion.p
-            variants={fadeIn('down', 0.4)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="max-w-[500px] mx-auto xl:mx-0 mb-6 xl:mb-12 px-2 xl:px-0"
-          >
-            2 years ago, I began my journey as a developer. Since then, I've
-            done remote work for agencies, consulted for startups, and
-            collaborated on digital products for business and consumer use.
-          </motion.p>
-
-          {/* counters */}
-          <motion.div
-            variants={fadeIn('down', 0.6)}
-            initial="hidden"
-            animate="show"
-            exit="hidden"
-            className="hidden md:flex md:max-w-xl xl:max-w-none mx-auto xl:mx-0 mb-8"
-          >
-            <div className="flex flex-1 xl:gap-x-6">
-              {/* experience */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
-                <div className="text-2xl xl:text-4xl font-extrabold text-indigo-500 mb-2">
-                  <CountUp start={0} end={5} duration={8} /> +
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                  Years of experience
-                </div>
+      {/* intro */}
+      <Section className="relative z-10">
+        <SectionHeading
+          eyebrow="About me"
+          title="Software engineer, "
+          accent="data-minded."
+          subtitle={profile.summary}
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {stats.map((s) => (
+            <div key={s.label} className="glass-card p-6">
+              <div className="text-3xl font-bold text-gradient-indigo">
+                <CountUp start={0} end={s.value} duration={2} />
+                {s.suffix}
               </div>
+              <p className="mt-2 text-sm text-white/50">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
 
-              {/* customers */}
-              <div className="relative flex-1 after:w-[1px] after:h-full after:bg-white/10 after:absolute after:top-0 after:right-0">
-                <div className="text-2xl xl:text-4xl font-extrabold text-indigo-500 mb-2">
-                  <CountUp start={0} end={10} duration={5} /> +
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                  Satisfied customers
-                </div>
-              </div>
-
-              {/* Projects */}
-              <div className="relative flex-1">
-                <div className="text-2xl xl:text-4xl font-extrabold text-indigo-500 mb-2">
-                  <CountUp start={0} end={12} duration={5} /> +
-                </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">
-                  Finished Projects
-                </div>
+      {/* skills */}
+      <Section className="relative z-10">
+        <SectionHeading eyebrow="Toolkit" title="Skills & " accent="stack." />
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {skillGroups.map((g) => (
+            <div key={g.title} className="glass-card p-6 hover:border-indigo-400/40 transition-colors duration-300">
+              <h3 className="text-sm uppercase tracking-[0.2em] text-indigo-300 mb-4">
+                {g.title}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {g.items.map((i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 rounded-full text-xs bg-white/5 border border-white/10 text-white/70"
+                  >
+                    {i}
+                  </span>
+                ))}
               </div>
             </div>
-          </motion.div>
+          ))}
         </div>
+      </Section>
 
-        {/* info */}
-        <motion.div
-          variants={fadeIn('left', 0.4)}
-          initial="hidden"
-          animate="show"
-          exit="hidden"
-          className="flex flex-col w-full xl:max-w-[48%] h-[400px]"
-        >
-          <div className="flex gap-x-4 xl:gap-x-8 mx-auto xl:mx-0 mb-4">
-            {aboutData.map((data, dataIndex) => {
-              return (
-                <div
-                  key={dataIndex}
-                  className={`${
-                    index === dataIndex &&
-                    'text-indigo-500 after:w-[100%] after:text-indigo-500 after:transition-all after:duration-300 '
-                  } cursor-pointer capitalize xl:text-lg relative after:w-8 after:h-[2px] after:bg-indigo-500/75 after:absolute after:-bottom-1 after:left-0`}
-                  onClick={() => setIndex(dataIndex)}
-                >
-                  {data.title}
+      {/* experience timeline */}
+      <Section className="relative z-10">
+        <SectionHeading eyebrow="Journey" title="Experience " accent="timeline." />
+        <div className="relative border-l border-white/10 pl-6 md:pl-10 space-y-8">
+          {experience.map((e) => (
+            <div key={`${e.role}-${e.company}`} className="relative">
+              <span className="absolute -left-[31px] md:-left-[47px] top-2 w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20" />
+              <div className="glass-card p-6">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 mb-3">
+                  <h3 className="h3">{e.role}</h3>
+                  <span className="text-xs tracking-wider uppercase text-indigo-300">
+                    {e.period}
+                  </span>
                 </div>
-              );
-            })}
+                <p className="text-sm text-white/50 mb-3">{e.company}</p>
+                <ul className="space-y-2">
+                  {e.points.map((p) => (
+                    <li key={p} className="text-sm text-white/60 flex gap-2">
+                      <span className="text-indigo-400 mt-1">•</span>
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* education + certificates */}
+      <Section className="relative z-10">
+        <div className="grid gap-6 md:grid-cols-2">
+          <div>
+            <h2 className="h3 mb-5 text-gradient-indigo">Education</h2>
+            <div className="space-y-4">
+              {education.map((e) => (
+                <div key={e.title} className="glass-card p-5">
+                  <p className="font-medium">{e.title}</p>
+                  <p className="text-sm text-white/50">{e.org}</p>
+                  <p className="text-xs text-indigo-300 mt-1">{e.period}</p>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className="bg-indigo-400/10 py-2 xl:py-6 flex flex-col gap-y-2 xl:gap-y-4 items-center xl:items-start rounded-lg">
-            {aboutData[index].info.map((data, dataIndex) => {
-              return (
-                <div
-                  key={dataIndex}
-                  className="flex-1 flex flex-col md:flex-row max-w-max gap-x-2 items-center text-white/60"
-                >
-                  {/* title */}
-                  <div className="font-light mb-2 md:mb-0">{data.title}</div>
-                  <div className="hidden md:flex">-</div>
-                  <div>{data.stage}</div>
-
-                  <div className="flex gap-x-4">
-                    {/* icons */}
-                    {data.icons?.map((icon, dataIndex) => {
-                      return (
-                        <div key={dataIndex} className="text-2xl text-white">
-                          {icon}
-                        </div>
-                      );
-                    })}
+          <div>
+            <h2 className="h3 mb-5 text-gradient-indigo">Certificates</h2>
+            <div className="space-y-4">
+              {certificates.map((c) => (
+                <div key={c.title} className="glass-card p-5 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="font-medium">{c.title}</p>
+                    <p className="text-sm text-white/50">{c.org}</p>
                   </div>
+                  <span className="text-xs text-indigo-300 whitespace-nowrap">{c.period}</span>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </div>
-        </motion.div>
-      </div>
-      <Bulb />
+        </div>
+      </Section>
+
+      <Footer />
     </div>
   );
 };

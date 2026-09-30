@@ -25,14 +25,17 @@ const Nav = () => {
   const pathname = location.pathname;
 
   return (
-    <nav className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-50 top-0 w-full xl:w-16 xl:max-w-md xl:h-screen p-0">
+    <nav aria-label="Primary" className="flex flex-col items-center xl:justify-center gap-y-4 fixed h-max bottom-0 mt-auto xl:right-[2%] z-50 top-0 w-full xl:w-16 xl:max-w-md xl:h-screen p-0">
       <div className="flex w-full xl:flex-col items-center justify-between xl:justify-center gap-y-10 px-4 md:px-40 xl:px-0 h-[60px] xl:h-max py-8 bg-white/10 backdrop-blur-sm text-3xl xl:text-xl xl:rounded-full">
         {links.map((data, index) => {
+          const isActive = data.path === pathname;
           return (
             <Link
+              aria-label={data.name}
+              aria-current={isActive ? 'page' : undefined}
               className={`${
-                data.path === pathname && 'text-indigo-500'
-              } relative flex items-center group hover:text-indigo-500 transition-all duration-300`}
+                isActive ? 'text-indigo-500' : ''
+              } relative flex items-center group hover:text-indigo-500 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-primary rounded-md`}
               to={data.path}
               key={index}
             >
