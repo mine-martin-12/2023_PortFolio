@@ -1,16 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Martin Ndungu · Software Engineer & AI Trainer</title>
+    <title>Martin</title>
     <meta
       name="description"
       content="Martin Ndungu Wangondu is a Nairobi-based software engineer, data analyst and AI trainer building scalable web apps with React, Node.js and NestJS."
     />
     <link rel="canonical" href="https://mine-martin-12.github.io/" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <meta property="og:title" content="Martin Ndungu · Software Engineer & AI Trainer" />
+    <meta
+      property="og:title"
+      content="Martin · Software Engineer & AI Trainer"
+    />
     <meta
       property="og:description"
       content="Nairobi-based software engineer, data analyst and AI trainer building scalable web applications."
@@ -18,8 +21,16 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://mine-martin-12.github.io/" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#f7f4ee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#040615" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="theme-color"
+      content="#f7f4ee"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#040615"
+      media="(prefers-color-scheme: dark)"
+    />
 
     <!-- Apply the saved or system theme before first paint to avoid a flash -->
     <script>
@@ -29,7 +40,9 @@
           theme = localStorage.getItem('theme');
         } catch (e) {}
         if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
         }
         document.documentElement.setAttribute('data-theme', theme);
       })();
@@ -46,7 +59,11 @@
               return s.replace(/~and~/g, '&');
             })
             .join('?');
-          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded + l.hash,
+          );
         }
       })(window.location);
     </script>
@@ -65,7 +82,11 @@
         "jobTitle": "Software Engineer",
         "url": "https://mine-martin-12.github.io/",
         "email": "mailto:wangondumn@gmail.com",
-        "address": { "@type": "PostalAddress", "addressLocality": "Nairobi", "addressCountry": "KE" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nairobi",
+          "addressCountry": "KE"
+        },
         "sameAs": [
           "https://github.com/mine-martin-12",
           "https://www.linkedin.com/in/martin-w-4749b21b1/",
