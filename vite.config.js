@@ -25,7 +25,7 @@ export default defineConfig(async ({ mode }) => {
     },
     build: {
       outDir: 'dist',
-      sourcemap: true,
+      sourcemap: false,
     },
   };
 });

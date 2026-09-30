@@ -1,80 +1,74 @@
 import { Link } from 'react-router-dom';
-import { RiGithubLine, RiLinkedinLine, RiMailLine, RiMapPin2Line } from 'react-icons/ri';
+import { RiMapPin2Line } from 'react-icons/ri';
+import Socials from './Socials';
 import { profile } from '../data/site';
 
-const iconLink =
-  'w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-lg text-white/70 hover:text-indigo-300 hover:border-indigo-400/50 transition-all duration-300';
+const footerLinks = [
+  { name: 'Selected work', to: '/work' },
+  { name: 'Services', to: '/services' },
+  { name: 'Experience', to: '/about' },
+  { name: 'Contact', to: '/contact' },
+];
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative z-10 border-t border-white/10 bg-primary/60 backdrop-blur-sm">
-      <div className="container mx-auto px-4 py-14 pb-28 xl:pb-14">
+    <footer className="px-3 pb-3 md:px-5 md:pb-5">
+      <div className="mx-auto max-w-7xl rounded-2xl bg-surface px-6 py-12 md:rounded-3xl md:px-10">
         <div className="grid gap-10 md:grid-cols-3">
-          {/* identity */}
           <div>
-            <h3 className="text-xl font-semibold mb-3">{profile.name}</h3>
-            <p className="flex items-center gap-2 text-white/60 text-sm mb-1">
-              <RiMapPin2Line className="text-indigo-400" aria-hidden="true" />
+            <p className="font-display text-2xl font-semibold tracking-tighter text-primary">
+              martin<span className="text-accent">.</span>
+            </p>
+            <p className="mt-3 flex items-center gap-2 text-sm text-on-surface/70">
+              <RiMapPin2Line className="text-accent" aria-hidden="true" />
               {profile.location}
             </p>
-            <p className="text-white/50 text-sm">
+            <p className="mt-1 text-sm text-on-surface-mute">
               {profile.role} · {profile.years}
             </p>
           </div>
 
-          {/* projects */}
-          <div>
-            <h4 className="text-sm uppercase tracking-[0.2em] text-white/40 mb-4">
-              Projects
-            </h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <Link to="/work" className="text-white/70 hover:text-indigo-300 transition-colors">
-                  Selected Work
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-white/70 hover:text-indigo-300 transition-colors">
-                  Skills &amp; Experience
-                </Link>
-              </li>
+          <nav aria-label="Footer">
+            <h2 className="mb-4 text-xs uppercase tracking-widest text-on-surface-mute">Explore</h2>
+            <ul className="grid grid-cols-2 gap-3 text-sm">
+              {footerLinks.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} className="text-on-surface/80 transition-colors hover:text-accent">
+                    {l.name}
+                  </Link>
+                </li>
+              ))}
               <li>
                 <a
-                  href={profile.socials.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/70 hover:text-indigo-300 transition-colors"
+                  href={profile.resume}
+                  download="Martin-Ndungu-Wangondu-Resume.pdf"
+                  className="text-on-surface/80 transition-colors hover:text-accent"
                 >
-                  GitHub
+                  Resume (PDF)
                 </a>
               </li>
             </ul>
-          </div>
+          </nav>
 
-          {/* connect */}
           <div>
-            <h4 className="text-sm uppercase tracking-[0.2em] text-white/40 mb-4">
-              Connect
-            </h4>
-            <div className="flex items-center gap-3">
-              <a href={profile.socials.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className={iconLink}>
-                <RiGithubLine />
-              </a>
-              <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={iconLink}>
-                <RiLinkedinLine />
-              </a>
-              <a href={`mailto:${profile.email}`} aria-label="Email" className={iconLink}>
-                <RiMailLine />
-              </a>
-            </div>
+            <h2 className="mb-4 text-xs uppercase tracking-widest text-on-surface-mute">Connect</h2>
+            <Socials />
+            <a
+              href={`mailto:${profile.email}`}
+              className="mt-4 inline-block text-sm text-on-surface/80 transition-colors hover:text-accent"
+            >
+              {profile.email}
+            </a>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-white/40">
-          <p>© {year} {profile.name}. All rights reserved.</p>
-          <p>Built with React, Vite &amp; framer-motion.</p>
+        <div className="mt-12 flex flex-col gap-3 border-t border-on-surface/10 pt-6 text-xs text-on-surface-mute sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {year} {profile.name}. All rights reserved.
+          </p>
+          <p>Built with React, Vite &amp; Tailwind CSS.</p>
         </div>
       </div>
     </footer>

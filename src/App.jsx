@@ -21,9 +21,21 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
     document.title = titles[location.pathname] || titles['/'];
   }, [location.pathname]);
+
+  // Scroll to #section links (e.g. /#work), otherwise to the top on page change.
+  // The delay lets the page transition mount the target first.
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      return;
+    }
+    const t = setTimeout(() => {
+      document.getElementById(location.hash.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+    return () => clearTimeout(t);
+  }, [location.pathname, location.hash]);
 
   return (
     <Layout>

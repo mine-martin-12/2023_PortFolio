@@ -1,74 +1,197 @@
+import { useState } from 'react';
 import { BsArrowRight } from 'react-icons/bs';
-import { RiMailLine, RiPhoneLine, RiMapPin2Line } from 'react-icons/ri';
+import {
+  RiCheckboxCircleLine,
+  RiErrorWarningLine,
+  RiLoader4Line,
+  RiMailLine,
+  RiMailSendLine,
+  RiMapPin2Line,
+  RiPhoneLine,
+} from 'react-icons/ri';
 import Footer from '../components/Footer';
+import ResumeButton from '../components/ResumeButton';
 import Socials from '../components/Socials';
 import Section, { SectionHeading } from '../components/Section';
-import { profile } from '../data/site';
+import { contactForm, profile } from '../data/site';
+
+const contactItems = [
+  { icon: RiMailLine, label: profile.email, href: `mailto:${profile.email}` },
+  { icon: RiPhoneLine, label: profile.phone, href: `tel:${profile.phone.replace(/\s/g, '')}` },
+  { icon: RiMapPin2Line, label: profile.location },
+];
+
+// Pre-filled email so a message can always be sent, even if the form service is down
+const mailtoLink = ({ name = '', email = '', subject = '', message = '' }) => {
+  const body = `${message}\n\n${name}${email ? ` (${email})` : ''}`.trim();
+  return `mailto:${profile.email}?subject=${encodeURIComponent(
+    subject || 'Hello from your portfolio'
+  )}&body=${encodeURIComponent(body)}`;
+};
+
+const sendViaWeb3Forms = async (fields) => {
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      access_key: contactForm.web3formsKey,
+      from_name: 'Portfolio contact form',
+      subject: `Portfolio: ${fields.subject}`,
+      name: fields.name,
+      email: fields.email,
+      message: `Subject: ${fields.subject}\n\n${fields.message}`,
+      botcheck: fields.botcheck,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.success) {
+    throw new Error(data.message || `Request failed (${res.status})`);
+  }
+};
 
 const Contact = () => {
+  // idle | sending | sent | mailto | error
+  const [status, setStatus] = useState('idle');
+  const [fallbackHref, setFallbackHref] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fields = Object.fromEntries(new FormData(form));
+
+    // honeypot: bots fill hidden fields, people don't
+    if (fields.botcheck) return;
+
+    const href = mailtoLink(fields);
+    setFallbackHref(href);
+
+    if (!contactForm.web3formsKey) {
+      window.location.href = href;
+      setStatus('mailto');
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      await sendViaWeb3Forms(fields);
+      form.reset();
+      setStatus('sent');
+    } catch {
+      setStatus('error');
+    }
+  };
+
   return (
-    <div className="relative overflow-hidden pt-28 md:pt-32">
-      <div className="bg-orb absolute top-10 -left-32 w-[420px] h-[420px] rounded-full pointer-events-none" />
-      <div className="bg-orb absolute bottom-0 -right-20 w-[380px] h-[380px] rounded-full pointer-events-none opacity-70" />
+    <div className="relative pt-16">
+      <Section>
+        <SectionHeading
+          as="h1"
+          eyebrow="Get in Touch"
+          title="Let's build something together."
+          subtitle="Have a project in mind, a system to fix, or a role to fill? Send a message and I will reply within a day."
+        />
 
-      <Section className="relative z-10">
-        <div className="grid gap-10 xl:grid-cols-2 xl:gap-16 items-start">
-          {/* left */}
-          <div>
-            <SectionHeading
-              eyebrow="Get in touch"
-              title="Let's build something "
-              accent="together."
-              subtitle="Have a project in mind, a system to fix, or a role to fill? Send a message and I will reply within a day."
-            />
-
-            <ul className="space-y-4">
-              <li className="glass-card p-4 flex items-center gap-4">
-                <RiMailLine className="text-xl text-indigo-400" aria-hidden="true" />
-                <a href={`mailto:${profile.email}`} className="text-sm hover:text-indigo-300 transition-colors">
-                  {profile.email}
-                </a>
-              </li>
-              <li className="glass-card p-4 flex items-center gap-4">
-                <RiPhoneLine className="text-xl text-indigo-400" aria-hidden="true" />
-                <a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="text-sm hover:text-indigo-300 transition-colors">
-                  {profile.phone}
-                </a>
-              </li>
-              <li className="glass-card p-4 flex items-center gap-4">
-                <RiMapPin2Line className="text-xl text-indigo-400" aria-hidden="true" />
-                <span className="text-sm text-white/70">{profile.location}</span>
-              </li>
-            </ul>
-
-            <div className="mt-8">
-              <Socials />
-            </div>
+        <div className="grid items-start gap-6 lg:grid-cols-5">
+          <div className="flex flex-col gap-4 lg:col-span-2">
+            {contactItems.map(({ icon: Icon, label, href }) => (
+              <div key={label} className="card flex items-center gap-4 !p-5">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-lg text-accent">
+                  <Icon aria-hidden="true" />
+                </span>
+                {href ? (
+                  <a href={href} className="text-sm transition-colors hover:text-accent">
+                    {label}
+                  </a>
+                ) : (
+                  <span className="text-sm text-on-surface/80">{label}</span>
+                )}
+              </div>
+            ))}
+            <ResumeButton className="mt-2 self-start" />
+            <Socials className="mt-2" />
           </div>
 
-          {/* form */}
-          <form
-            className="glass-card p-6 md:p-8 flex flex-col gap-5 w-full"
-            action="https://formsubmit.co/wangondumn@gmail.com"
-            method="POST"
-          >
-            <input type="hidden" name="_subject" value="New contact form submission!" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
+          <form onSubmit={handleSubmit} className="card flex w-full flex-col gap-5 lg:col-span-3">
+            <input
+              type="checkbox"
+              name="botcheck"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
 
-            <div className="flex gap-x-6 gap-y-5 w-full flex-col md:flex-row">
-              <input type="text" name="name" placeholder="Name" className="input" required />
-              <input type="email" name="email" placeholder="Email" className="input" required />
+            <div className="flex w-full flex-col gap-5 md:flex-row">
+              <label className="w-full">
+                <span className="sr-only">Name</span>
+                <input type="text" name="name" placeholder="Name" className="input" required />
+              </label>
+              <label className="w-full">
+                <span className="sr-only">Email</span>
+                <input type="email" name="email" placeholder="Email" className="input" required />
+              </label>
             </div>
-            <input type="text" name="subject" placeholder="Subject" className="input" required />
-            <textarea name="message" placeholder="Message" className="textarea" required></textarea>
-            <button
-              type="submit"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-indigo-500 hover:bg-indigo-400 transition-all duration-300 max-w-[190px]"
-            >
-              Let's talk
-              <BsArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            <label>
+              <span className="sr-only">Subject</span>
+              <input type="text" name="subject" placeholder="Subject" className="input" required />
+            </label>
+            <label>
+              <span className="sr-only">Message</span>
+              <textarea name="message" placeholder="Message" className="textarea" required />
+            </label>
+
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+              <button
+                type="submit"
+                disabled={status === 'sending'}
+                className="btn-accent focus-ring group self-start disabled:cursor-wait disabled:opacity-70"
+              >
+                {status === 'sending' ? (
+                  <>
+                    <RiLoader4Line className="animate-spin" aria-hidden="true" />
+                    Sending…
+                  </>
+                ) : (
+                  <>
+                    Send message
+                    <BsArrowRight className="transition-transform group-hover:translate-x-1" />
+                  </>
+                )}
+              </button>
+
+              <div role="status" aria-live="polite" className="text-sm">
+                {status === 'sent' && (
+                  <p className="flex items-center gap-2 text-secondary">
+                    <RiCheckboxCircleLine aria-hidden="true" />
+                    Thanks! Your message is on its way. I will reply within a day.
+                  </p>
+                )}
+                {status === 'mailto' && (
+                  <p className="flex items-center gap-2 text-on-surface/80">
+                    <RiMailSendLine className="shrink-0 text-accent" aria-hidden="true" />
+                    <span>
+                      Your email app should open with the message ready to send. Nothing opened?{' '}
+                      <a href={fallbackHref} className="text-accent underline underline-offset-2">
+                        Try again
+                      </a>{' '}
+                      or email {profile.email}.
+                    </span>
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="flex items-center gap-2 text-red-500">
+                    <RiErrorWarningLine className="shrink-0" aria-hidden="true" />
+                    <span>
+                      The message couldn&apos;t be sent right now.{' '}
+                      <a href={fallbackHref} className="underline underline-offset-2">
+                        Send it by email instead
+                      </a>
+                      .
+                    </span>
+                  </p>
+                )}
+              </div>
+            </div>
           </form>
         </div>
       </Section>

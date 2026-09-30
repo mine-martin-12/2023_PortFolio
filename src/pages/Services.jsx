@@ -59,60 +59,50 @@ const services = [
 
 const Services = () => {
   return (
-    <div className="relative overflow-hidden pt-28 md:pt-32">
-      <div className="bg-orb absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full pointer-events-none" />
-      <div className="bg-orb absolute bottom-1/3 -right-24 w-[380px] h-[380px] rounded-full pointer-events-none opacity-70" />
-
-      <Section className="relative z-10">
+    <div className="relative pt-16">
+      <Section>
         <SectionHeading
-          eyebrow="What I do"
-          title="Services that ship "
-          accent="products."
+          as="h1"
+          eyebrow="Services"
+          title="Services that ship products."
           subtitle="Whether you need a new product built or an existing one made faster, here is how I can help."
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {services.map((s) => (
-            <div
-              key={s.title}
-              className="glass-card p-7 flex flex-col hover:border-indigo-400/50 hover:glow-indigo hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl mb-5 flex items-center justify-center text-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
+            <article key={s.title} className="card card-hover flex flex-col">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-2xl text-accent">
                 {s.icon}
-              </div>
-              <h3 className="h3 mb-3">{s.title}</h3>
-              <p className="text-sm text-white/60 mb-5">{s.description}</p>
-              <ul className="mt-auto space-y-2 pt-5 border-t border-white/10">
+              </span>
+              <h2 className="h3 mt-6">{s.title}</h2>
+              <p className="mt-3 text-sm leading-7 text-on-surface/70">{s.description}</p>
+              <ul className="mt-auto space-y-2 border-t border-on-surface/10 pt-5">
                 {s.features.map((f) => (
-                  <li key={f} className="text-xs text-white/50 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                  <li key={f} className="flex items-center gap-2 text-xs text-on-surface/70">
+                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
                     {f}
                   </li>
                 ))}
               </ul>
-            </div>
+            </article>
           ))}
         </div>
       </Section>
 
-      {/* process */}
-      <Section className="relative z-10">
-        <SectionHeading eyebrow="Process" title="How I " accent="work." />
-        <div className="grid gap-6 md:grid-cols-3">
+      <Section>
+        <SectionHeading eyebrow="Process" title="How I work." />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {process.map((p) => (
-            <div key={p.step} className="glass-card p-7">
-              <span className="text-4xl font-bold text-indigo-500/40">{p.step}</span>
-              <h3 className="h3 mt-3 mb-2">{p.title}</h3>
-              <p className="text-sm text-white/60">{p.text}</p>
-            </div>
+            <article key={p.step} className="card">
+              <span className="font-display text-4xl font-semibold text-accent/60">{p.step}</span>
+              <h3 className="h3 mt-6">{p.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-on-surface/70">{p.text}</p>
+            </article>
           ))}
         </div>
-        <Link
-          to="/contact"
-          className="group inline-flex items-center gap-2 mt-10 px-7 py-3 rounded-full bg-indigo-500 hover:bg-indigo-400 transition-all duration-300 glow-indigo"
-        >
+        <Link to="/contact" className="btn-accent focus-ring group self-start">
           Start a project
-          <BsArrowRight className="group-hover:translate-x-1 transition-transform" />
+          <BsArrowRight className="transition-transform group-hover:translate-x-1" />
         </Link>
       </Section>
 

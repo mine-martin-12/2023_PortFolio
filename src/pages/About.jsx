@@ -1,5 +1,6 @@
 import CountUp from 'react-countup';
 import Footer from '../components/Footer';
+import ResumeButton from '../components/ResumeButton';
 import Section, { SectionHeading } from '../components/Section';
 import {
   profile,
@@ -12,46 +13,39 @@ import {
 
 const About = () => {
   return (
-    <div className="relative overflow-hidden pt-28 md:pt-32">
-      <div className="bg-orb absolute -top-20 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none" />
-      <div className="bg-orb absolute top-1/2 -right-24 w-[380px] h-[380px] rounded-full pointer-events-none opacity-60" />
-
+    <div className="relative pt-16">
       {/* intro */}
-      <Section className="relative z-10">
+      <Section>
         <SectionHeading
-          eyebrow="About me"
-          title="Software engineer, "
-          accent="data-minded."
+          as="h1"
+          eyebrow="About Me"
+          title="Software engineer, data-minded."
           subtitle={profile.summary}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <ResumeButton variant="accent" className="-mt-4 self-start" />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {stats.map((s) => (
-            <div key={s.label} className="glass-card p-6">
-              <div className="text-3xl font-bold text-gradient-indigo">
+            <div key={s.label} className="card">
+              <div className="font-display text-4xl tracking-tight text-secondary">
                 <CountUp start={0} end={s.value} duration={2} />
                 {s.suffix}
               </div>
-              <p className="mt-2 text-sm text-white/50">{s.label}</p>
+              <p className="mt-2 text-xs uppercase tracking-widest text-on-surface/60">{s.label}</p>
             </div>
           ))}
         </div>
       </Section>
 
       {/* skills */}
-      <Section className="relative z-10">
-        <SectionHeading eyebrow="Toolkit" title="Skills & " accent="stack." />
-        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+      <Section>
+        <SectionHeading eyebrow="Toolkit" title="Skills & stack." />
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {skillGroups.map((g) => (
-            <div key={g.title} className="glass-card p-6 hover:border-indigo-400/40 transition-colors duration-300">
-              <h3 className="text-sm uppercase tracking-[0.2em] text-indigo-300 mb-4">
-                {g.title}
-              </h3>
+            <div key={g.title} className="card card-hover">
+              <h3 className="mb-4 text-xs uppercase tracking-widest text-accent">{g.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {g.items.map((i) => (
-                  <span
-                    key={i}
-                    className="px-3 py-1.5 rounded-full text-xs bg-white/5 border border-white/10 text-white/70"
-                  >
+                  <span key={i} className="tag">
                     {i}
                   </span>
                 ))}
@@ -62,59 +56,57 @@ const About = () => {
       </Section>
 
       {/* experience timeline */}
-      <Section className="relative z-10">
-        <SectionHeading eyebrow="Journey" title="Experience " accent="timeline." />
-        <div className="relative border-l border-white/10 pl-6 md:pl-10 space-y-8">
+      <Section id="experience">
+        <SectionHeading eyebrow="Journey" title="Experience timeline." />
+        <ol className="relative space-y-6 border-l border-on-surface/10 pl-6 md:pl-10">
           {experience.map((e) => (
-            <div key={`${e.role}-${e.company}`} className="relative">
-              <span className="absolute -left-[31px] md:-left-[47px] top-2 w-3 h-3 rounded-full bg-indigo-500 ring-4 ring-indigo-500/20" />
-              <div className="glass-card p-6">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 mb-3">
+            <li key={`${e.role}-${e.company}`} className="relative">
+              <span className="absolute -left-[31px] top-8 h-3 w-3 rounded-full bg-accent ring-4 ring-accent/20 md:-left-[47px]" />
+              <div className="card">
+                <div className="mb-2 flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
                   <h3 className="h3">{e.role}</h3>
-                  <span className="text-xs tracking-wider uppercase text-indigo-300">
-                    {e.period}
-                  </span>
+                  <span className="text-xs uppercase tracking-wider text-secondary">{e.period}</span>
                 </div>
-                <p className="text-sm text-white/50 mb-3">{e.company}</p>
+                <p className="mb-4 text-sm text-on-surface-mute">{e.company}</p>
                 <ul className="space-y-2">
                   {e.points.map((p) => (
-                    <li key={p} className="text-sm text-white/60 flex gap-2">
-                      <span className="text-indigo-400 mt-1">•</span>
+                    <li key={p} className="flex gap-2 text-sm leading-7 text-on-surface/70">
+                      <span className="text-accent">•</span>
                       <span>{p}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </Section>
 
       {/* education + certificates */}
-      <Section className="relative z-10">
-        <div className="grid gap-6 md:grid-cols-2">
+      <Section>
+        <div className="grid gap-10 md:grid-cols-2">
           <div>
-            <h2 className="h3 mb-5 text-gradient-indigo">Education</h2>
-            <div className="space-y-4">
+            <span className="pill">Education</span>
+            <div className="mt-8 space-y-4">
               {education.map((e) => (
-                <div key={e.title} className="glass-card p-5">
+                <div key={e.title} className="card !p-6">
                   <p className="font-medium">{e.title}</p>
-                  <p className="text-sm text-white/50">{e.org}</p>
-                  <p className="text-xs text-indigo-300 mt-1">{e.period}</p>
+                  <p className="text-sm text-on-surface-mute">{e.org}</p>
+                  <p className="mt-1 text-xs text-secondary">{e.period}</p>
                 </div>
               ))}
             </div>
           </div>
           <div>
-            <h2 className="h3 mb-5 text-gradient-indigo">Certificates</h2>
-            <div className="space-y-4">
+            <span className="pill">Certificates</span>
+            <div className="mt-8 space-y-4">
               {certificates.map((c) => (
-                <div key={c.title} className="glass-card p-5 flex items-center justify-between gap-4">
+                <div key={c.title} className="card flex items-center justify-between gap-4 !p-6">
                   <div>
                     <p className="font-medium">{c.title}</p>
-                    <p className="text-sm text-white/50">{c.org}</p>
+                    <p className="text-sm text-on-surface-mute">{c.org}</p>
                   </div>
-                  <span className="text-xs text-indigo-300 whitespace-nowrap">{c.period}</span>
+                  <span className="whitespace-nowrap text-xs text-secondary">{c.period}</span>
                 </div>
               ))}
             </div>

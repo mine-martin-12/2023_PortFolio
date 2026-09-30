@@ -1,48 +1,29 @@
-import { RiGithubLine, RiLinkedinLine, RiTwitterLine } from "react-icons/ri";
-import { FaKaggle } from "react-icons/fa6";
+import { RiGithubLine, RiLinkedinLine, RiTwitterXLine } from 'react-icons/ri';
+import { FaKaggle } from 'react-icons/fa6';
+import { profile } from '../data/site';
 
-const Socials = () => {
+export const socialLinks = [
+  { name: 'GitHub', href: profile.socials.github, icon: RiGithubLine },
+  { name: 'LinkedIn', href: profile.socials.linkedin, icon: RiLinkedinLine },
+  { name: 'Kaggle', href: profile.socials.kaggle, icon: FaKaggle },
+  { name: 'X / Twitter', href: profile.socials.twitter, icon: RiTwitterXLine },
+];
+
+const Socials = ({ className = '' }) => {
   return (
-    <div className="flex items-center gap-x-5 md:gap-x-7 text-lg">
-      <a
-        href="https://github.com/mine-martin-12"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:text-indigo-500 transition-all duration-300 hover:scale-125"
-        aria-label="GitHub Profile"
-      >
-        <RiGithubLine />
-      </a>
-
-      <a
-        href="https://www.linkedin.com/in/martin-w-4749b21b1/"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:text-indigo-500 transition-all duration-300 hover:scale-125"
-        aria-label="LinkedIn Profile"
-      >
-        <RiLinkedinLine />
-      </a>
-
-      <a
-        href="https://www.kaggle.com/minemartin"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:text-indigo-500 transition-all duration-300 hover:scale-125"
-        aria-label="Kaggle Profile"
-      >
-        <FaKaggle />
-      </a>
-
-      <a
-        href="https://twitter.com/martin_mine"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="hover:text-indigo-500 transition-all duration-300 hover:scale-125"
-        aria-label="Twitter Profile"
-      >
-        <RiTwitterLine />
-      </a>
+    <div className={`flex items-center gap-3 ${className}`}>
+      {socialLinks.map(({ name, href, icon: Icon }) => (
+        <a
+          key={name}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${name} profile`}
+          className="focus-ring flex h-10 w-10 items-center justify-center rounded-full border border-on-surface/10 text-lg text-on-surface/70 transition-all duration-300 hover:border-accent/50 hover:text-accent"
+        >
+          <Icon />
+        </a>
+      ))}
     </div>
   );
 };

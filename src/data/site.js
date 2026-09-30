@@ -7,6 +7,7 @@ export const profile = {
   years: '6+ years',
   email: 'wangondumn@gmail.com',
   phone: '+254 713 403 290',
+  resume: '/Martin-Ndungu-Resume.pdf',
   summary:
     'I build scalable web applications, turn messy data into clear decisions, and train AI systems to be more accurate. Six-plus years across full-stack engineering, data analysis and model evaluation.',
   socials: {
@@ -15,6 +16,14 @@ export const profile = {
     kaggle: 'https://www.kaggle.com/minemartin',
     twitter: 'https://twitter.com/martin_mine',
   },
+};
+
+// Contact form delivery via Web3Forms (https://web3forms.com).
+// Get a free access key by entering your email on their site, then paste it here.
+// The key is designed to be public. Until it is set, the form opens a pre-filled
+// email instead of posting, so messages are never lost.
+export const contactForm = {
+  web3formsKey: '',
 };
 
 export const stats = [
@@ -101,6 +110,7 @@ export const certificates = [
   { title: 'Intermediate Python', org: 'DataCamp', period: '2023' },
   { title: 'Introduction to Python', org: 'DataCamp', period: '2023' },
   { title: 'HTML Master Class', org: 'Udemy', period: '2020' },
+  { title: 'C++ Beginner Online Course', org: 'Udemy', period: '2020' },
   { title: 'Google Go Programming', org: 'Udemy', period: '2019' },
 ];
 
@@ -143,20 +153,82 @@ export const projects = [
   },
 ];
 
+export const valueProps = [
+  {
+    icon: 'target',
+    title: 'Measurable results',
+    text: 'I track impact, not just tasks: 30% faster APIs, 25% less downtime and 30% more accurate AI responses in recent roles.',
+  },
+  {
+    icon: 'layers',
+    title: 'Full-stack range',
+    text: 'From React interfaces to NestJS APIs, SQL and NoSQL databases and CI/CD pipelines, I can take a feature from the first commit to production.',
+  },
+  {
+    icon: 'bolt',
+    title: 'Data and AI fluency',
+    text: 'Hands-on work analysing datasets and training AI models means sharper product decisions and practical automation where it pays off.',
+  },
+];
+
 export const process = [
   {
     step: '01',
     title: 'Discover',
-    text: 'We map the problem, the users and the constraints before a line of code is written.',
+    text: 'I start by listening: gathering requirements, understanding the users and writing down what success looks like.',
   },
   {
     step: '02',
-    title: 'Build',
-    text: 'Iterative delivery with clean, documented code and a working preview every week.',
+    title: 'Plan & prototype',
+    text: 'Sketch the architecture and put an early preview in front of you, so your feedback shapes the build.',
   },
   {
     step: '03',
-    title: 'Launch & refine',
-    text: 'Deploy, measure, optimise performance and keep improving after go-live.',
+    title: 'Build & test',
+    text: 'Clean, documented code with testing and validation at every stage, and CI/CD so releases stay routine.',
+  },
+  {
+    step: '04',
+    title: 'Launch & support',
+    text: 'Deploy, monitor and tune performance, then hand over with documentation your team can rely on.',
+  },
+];
+
+export const bestFit = [
+  {
+    icon: 'code',
+    title: 'Web applications',
+    text: 'Dashboards, management systems and customer-facing apps built with React, Next.js, Node.js and NestJS.',
+  },
+  {
+    icon: 'chart',
+    title: 'Data & analytics',
+    text: 'Dashboards, reporting and database optimisation that turn raw operational data into clear decisions.',
+  },
+  {
+    icon: 'sparkles',
+    title: 'AI training & evaluation',
+    text: 'Prompt engineering, RLHF, data annotation and model evaluation that make AI systems measurably more accurate.',
+  },
+  {
+    icon: 'rocket',
+    title: 'Delivery & DevOps',
+    text: 'CI/CD automation, cloud deployment, code review and mentoring that keep teams shipping reliably.',
+  },
+];
+
+// TODO: replace with real quotes from colleagues and clients
+export const testimonials = [
+  {
+    quote:
+      'Martin picks up a new codebase quickly and ships dependable features. His API work made a noticeable difference to our response times.',
+    role: 'Engineering Lead',
+    company: 'Stream4Tech LLC',
+  },
+  {
+    quote:
+      'Always ready to help the junior developers, and his code reviews caught problems long before they reached production.',
+    role: 'Product Manager',
+    company: 'Automata Systems',
   },
 ];

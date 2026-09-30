@@ -1,4 +1,4 @@
-# Portfolio
+# Martin Ndungu · Portfolio
 
 A modern portfolio built with React, Vite, and Tailwind CSS.
 
@@ -36,10 +36,8 @@ This will generate a production-ready build in the `dist` directory.
 
 ## Deploy
 
-The easiest way to deploy your Vite app is to use [Vercel](https://vercel.com):
+The site is hosted on GitHub Pages at **https://mine-martin-12.github.io/**.
 
-1. Push your code to GitHub
-2. Import your repository on Vercel
-3. Vercel will automatically detect the Vite configuration and deploy
+Every push to `main` runs [.github/workflows/deploy.yml](.github/workflows/deploy.yml), which builds the site with `npm run build` and publishes `dist/` to Pages. In the repository settings, Pages must be set to **Source: GitHub Actions**.
 
-Check out the [Vite deployment documentation](https://vitejs.dev/guide/static-deploy.html) for more details.
+Client-side routes such as `/about` survive a page refresh because of the redirect in `public/404.html` and the restore script in `index.html`.

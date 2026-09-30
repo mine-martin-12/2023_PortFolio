@@ -1,209 +1,289 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CountUp from 'react-countup';
-import { BsArrowRight } from 'react-icons/bs';
-import ParticlesContainer from '../components/ParticlesContainer';
-import Avatar from '../components/Avatar';
+import { BsArrowRight, BsArrowUpRight } from 'react-icons/bs';
+import { RiCodeSSlashLine, RiDoubleQuotesL, RiPhoneLine } from 'react-icons/ri';
 import Footer from '../components/Footer';
+import ProjectCard from '../components/ProjectCard';
+import ResumeButton from '../components/ResumeButton';
 import Section, { SectionHeading } from '../components/Section';
-import { fadeIn } from '../utils/variants';
-import { profile, stats, projects, skillGroups } from '../data/site';
+import { socialLinks } from '../components/Socials';
+import { icons } from '../components/icons';
+import {
+  profile,
+  projects,
+  valueProps,
+  process,
+  bestFit,
+  testimonials,
+} from '../data/site';
 
-const services = [
-  {
-    title: 'Web Development',
-    text: 'Full-stack applications with React, Next.js, Node.js and NestJS — clean code and scalable APIs.',
-  },
-  {
-    title: 'Data & Analytics',
-    text: 'Dashboards, reporting and database optimisation that turn raw data into decisions.',
-  },
-  {
-    title: 'AI Training',
-    text: 'Prompt engineering, annotation and model evaluation to make AI systems measurably better.',
-  },
-];
+const reveal = (delay = 0) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: 'easeOut' },
+});
 
-const Home = () => {
-  return (
-    <div className="relative overflow-hidden">
-      {/* hero */}
-      <section className="relative min-h-[92vh] flex items-center bg-primary/60 overflow-hidden">
-        <div className="bg-orb absolute top-20 -left-32 w-[420px] h-[420px] rounded-full pointer-events-none" />
-        <div className="bg-orb absolute bottom-10 left-1/3 w-[320px] h-[320px] rounded-full pointer-events-none opacity-60" />
+// Concave corner piece that makes the hero card look "notched"
+const InvertedCorner = ({ className }) => (
+  <div
+    aria-hidden="true"
+    className={`h-12 w-12 ${className}`}
+    style={{
+      background:
+        'radial-gradient(circle at 0 0, transparent 47px, rgb(var(--surface-tint)) 48px)',
+    }}
+  />
+);
 
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-black/30 to-black/10" />
+const Hero = () => (
+  <section className="flex h-[100svh] min-h-[640px] w-full items-center justify-center p-3 md:p-5">
+    <div className="relative flex h-full w-full max-w-7xl flex-col items-center overflow-hidden rounded-2xl bg-surface md:rounded-3xl">
+      {/* soft glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-accent/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-primary/10 blur-3xl"
+      />
 
-        {/* background visual */}
-        <div className="hidden xl:block w-[1100px] h-full absolute right-0 bottom-0">
-          <ParticlesContainer />
-          <motion.div
-            variants={fadeIn('up', 0.5)}
-            initial="hidden"
-            animate="show"
-            transition={{ duration: 1, ease: 'easeInOut' }}
-            className="w-full h-full max-w-[680px] max-h-[640px] absolute bottom-0 right-[6%]"
-          >
-            <Avatar />
+      <div className="relative flex h-full w-full flex-col items-center justify-center px-6 pb-28 pt-24 md:pb-24">
+        <motion.div {...reveal(0.1)} className="mb-2 h-36 w-36 md:h-48 md:w-48 lg:h-56 lg:w-56">
+          <img
+            src="/portfolioavatar.png"
+            alt={profile.name}
+            className="h-full w-full rounded-full object-cover object-top"
+          />
+        </motion.div>
+
+        <div className="flex flex-col items-center text-center md:px-6 lg:px-12">
+          <motion.div {...reveal(0.25)} className="relative mx-auto mb-6 w-fit">
+            <Link
+              to="/about"
+              className="focus-ring flex animate-hero-badge-pulse items-center gap-2 rounded-full border border-accent/20 px-4 py-2 backdrop-blur-md transition-all duration-500 hover:border-accent/60"
+            >
+              <RiCodeSSlashLine className="text-sm text-accent" aria-hidden="true" />
+              <span className="text-xs font-light text-on-surface sm:text-sm">{profile.tagline}</span>
+            </Link>
           </motion.div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10 pt-32 pb-20 text-center xl:text-left">
-          <motion.span
-            variants={fadeIn('down', 0.1)}
-            initial="hidden"
-            animate="show"
-            className="inline-block mb-5 px-4 py-1.5 text-[11px] tracking-[0.3em] uppercase rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300"
-          >
-            {profile.tagline}
-          </motion.span>
 
           <motion.h1
-            variants={fadeIn('down', 0.2)}
-            initial="hidden"
-            animate="show"
-            className="h1 text-gradient-indigo max-w-3xl mx-auto xl:mx-0"
+            {...reveal(0.4)}
+            className="mb-6 font-display text-3xl font-semibold leading-[1.05] tracking-tight text-primary drop-shadow-sm sm:text-4xl md:text-5xl lg:text-6xl"
           >
-            Transforming ideas into{' '}
-            <span className="text-indigo-400">digital reality</span>
+            I turn ideas into dependable software.
           </motion.h1>
 
           <motion.p
-            variants={fadeIn('down', 0.3)}
-            initial="hidden"
-            animate="show"
-            className="max-w-xl mx-auto xl:mx-0 mt-6 mb-10 text-white/60 text-sm md:text-base"
+            {...reveal(0.55)}
+            className="mx-auto mb-8 max-w-xl text-sm leading-relaxed text-on-surface/70 sm:text-base"
           >
             {profile.summary}
           </motion.p>
 
-          <motion.div
-            variants={fadeIn('down', 0.4)}
-            initial="hidden"
-            animate="show"
-            className="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start"
-          >
-            <Link
-              to="/work"
-              className="group inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full bg-indigo-500 hover:bg-indigo-400 text-white font-medium transition-all duration-300 glow-indigo"
-            >
-              View my work
-              <BsArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center px-7 py-3 rounded-full border border-white/20 hover:border-indigo-400/60 hover:text-indigo-300 transition-all duration-300"
-            >
-              Hire me
-            </Link>
+          {/* socials marquee */}
+          <motion.div {...reveal(0.7)} className="w-full max-w-sm overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_20%,black_80%,transparent)]">
+            <div className="flex w-max animate-marquee gap-8 hover:[animation-play-state:paused]">
+              {[...socialLinks, ...socialLinks].map(({ name, href, icon: Icon }, i) => (
+                <a
+                  key={`${name}-${i}`}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${name} profile`}
+                  tabIndex={i >= socialLinks.length ? -1 : undefined}
+                  className="flex items-center gap-2 text-sm text-on-surface/70 transition-colors hover:text-accent"
+                >
+                  <Icon className="text-lg" />
+                  <span>{name}</span>
+                </a>
+              ))}
+            </div>
           </motion.div>
         </div>
-      </section>
+      </div>
 
-      {/* stats */}
-      <Section className="!py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          {stats.map((s) => (
-            <div key={s.label} className="glass-card p-6 text-center sm:text-left">
-              <div className="text-4xl font-bold text-gradient-indigo">
-                <CountUp start={0} end={s.value} duration={2} />
-                {s.suffix}
-              </div>
-              <p className="mt-2 text-sm text-white/50">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* services preview */}
-      <Section>
-        <SectionHeading
-          eyebrow="What I do"
-          title="Services built around "
-          accent="outcomes."
-          subtitle="From first sketch to production deployment — engineering that ships and keeps working."
-        />
-        <div className="grid gap-5 md:grid-cols-3">
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="glass-card p-7 hover:border-indigo-400/50 hover:-translate-y-1 transition-all duration-300"
-            >
-              <h3 className="h3 mb-3">{s.title}</h3>
-              <p className="text-sm text-white/60">{s.text}</p>
-            </div>
-          ))}
-        </div>
+      {/* floating experience card */}
+      <motion.div
+        initial={{ opacity: 0, x: -40 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1, delay: 0.9 }}
+        className="absolute bottom-10 left-10 hidden min-w-[200px] flex-col gap-4 rounded-3xl border border-accent/10 bg-surface/90 p-6 backdrop-blur-md transition-all hover:border-accent/30 lg:flex"
+      >
+        <span className="font-display text-4xl tracking-tight text-secondary">
+          {profile.years.replace(' years', '')}
+        </span>
+        <span className="text-xs font-light uppercase tracking-widest text-on-surface/60">
+          Years of experience
+        </span>
         <Link
-          to="/services"
-          className="inline-flex items-center gap-2 mt-8 text-indigo-300 hover:text-indigo-200 transition-colors"
+          to="/contact"
+          className="focus-ring flex items-center gap-2 self-start rounded-full bg-accent py-1.5 pl-1.5 pr-5 text-surface transition-all hover:bg-accent-dark active:scale-95"
         >
-          All services <BsArrowRight />
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface/20">
+            <RiPhoneLine className="text-sm" aria-hidden="true" />
+          </span>
+          <span className="text-sm font-medium">Hire me</span>
         </Link>
-      </Section>
+      </motion.div>
 
-      {/* work preview */}
-      <Section>
+      {/* notched corner CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute bottom-0 right-0 flex items-center gap-4 rounded-tl-3xl bg-surface-tint p-4 pl-8 pt-5 md:rounded-tl-4xl md:p-8 md:pl-14 md:pt-10"
+      >
+        <InvertedCorner className="absolute -top-12 right-0" />
+        <InvertedCorner className="absolute -left-12 bottom-0" />
+        <Link to="/contact" className="focus-ring group flex items-center gap-4 rounded-full">
+          <span className="hidden flex-col text-right md:flex">
+            <span className="text-xs uppercase tracking-widest text-on-surface-mute">
+              Available for work
+            </span>
+            <span className="text-lg font-medium md:text-xl">Let&apos;s talk</span>
+          </span>
+          <span className="flex h-12 w-12 items-center justify-center rounded-full bg-surface text-lg text-accent shadow-sm transition-transform group-hover:rotate-45">
+            <BsArrowUpRight />
+          </span>
+        </Link>
+      </motion.div>
+    </div>
+  </section>
+);
+
+const IconBadge = ({ name }) => {
+  const Icon = icons[name];
+  return (
+    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-accent/10 text-2xl text-accent">
+      {Icon && <Icon aria-hidden="true" />}
+    </span>
+  );
+};
+
+const Home = () => {
+  return (
+    <div className="relative">
+      <Hero />
+
+      {/* What you get */}
+      <Section id="value">
         <SectionHeading
-          eyebrow="Selected work"
-          title="Recent "
-          accent="projects."
-          subtitle="A few systems I designed, built and shipped."
+          eyebrow="Why Work With Me"
+          title="An engineer who sees the whole picture."
+          subtitle="Six years across code, data and AI means fewer handoffs, fewer surprises and results you can measure."
         />
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.slice(0, 2).map((p) => (
-            <a
-              key={p.title}
-              href={p.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card overflow-hidden group hover:border-indigo-400/50 hover:-translate-y-1 transition-all duration-500"
-            >
-              <div className="relative h-52 md:h-64 overflow-hidden">
-                <img
-                  src={p.image}
-                  alt={`${p.title} — ${p.subtitle}`}
-                  loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="h3 mb-1">{p.title}</h3>
-                <p className="text-sm text-white/50">{p.subtitle}</p>
-              </div>
-            </a>
+        <div className="grid gap-4 md:grid-cols-3">
+          {valueProps.map((v) => (
+            <article key={v.title} className="card card-hover">
+              <IconBadge name={v.icon} />
+              <h3 className="h3 mt-6">{v.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-on-surface/70">{v.text}</p>
+            </article>
           ))}
         </div>
       </Section>
 
-      {/* about teaser */}
-      <Section>
-        <div className="glass-card p-8 md:p-12 grid gap-8 md:grid-cols-2 items-center">
-          <div>
-            <SectionHeading eyebrow="About" title="Engineering with " accent="intent." />
-            <p className="text-white/60 text-sm md:text-base">
-              Based in {profile.location}, I have spent {profile.years} building
-              products across fintech-style dashboards, retail systems and AI
-              training pipelines. I care about clean architecture, measurable
-              performance and interfaces people enjoy using.
-            </p>
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 mt-6 text-indigo-300 hover:text-indigo-200 transition-colors"
-            >
-              More about me <BsArrowRight />
+      {/* How I work */}
+      <Section id="process">
+        <SectionHeading
+          eyebrow="Process"
+          title="A clear path from idea to launch."
+          subtitle="You always know what is being built, why it matters and when it ships."
+        />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {process.map((p) => (
+            <article key={p.step} className="card card-hover">
+              <span className="font-display text-4xl font-semibold text-accent/60">{p.step}</span>
+              <h3 className="h3 mt-6">{p.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-on-surface/70">{p.text}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      {/* Best fit */}
+      <Section id="fit">
+        <SectionHeading
+          eyebrow="Ideal Projects"
+          title="Where I add the most value."
+          subtitle="The roles and projects where my mix of engineering, data and AI experience makes the biggest difference."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          {bestFit.map((b) => (
+            <article key={b.title} className="card card-hover flex gap-5">
+              <IconBadge name={b.icon} />
+              <div>
+                <h3 className="h3">{b.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-on-surface/70">{b.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
+
+      {/* Selected work */}
+      <Section id="work">
+        <SectionHeading
+          eyebrow="Portfolio"
+          title="Things I have built."
+          subtitle="Business tools and platforms designed around the day-to-day work of the people who use them."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          {projects.map((p) => (
+            <ProjectCard key={p.title} project={p} />
+          ))}
+        </div>
+      </Section>
+
+      {/* Testimonials */}
+      <Section id="testimonials">
+        <SectionHeading
+          eyebrow="Kind Words"
+          title="What colleagues say."
+          subtitle="Feedback from people I have built software with."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          {testimonials.map((t) => (
+            <figure key={t.role + t.company} className="card flex flex-col">
+              <RiDoubleQuotesL className="text-3xl text-accent" aria-hidden="true" />
+              <blockquote className="mt-4 flex-1 text-sm leading-7 text-on-surface/80">
+                {t.quote}
+              </blockquote>
+              <figcaption className="mt-6 border-t border-on-surface/10 pt-4">
+                <p className="text-sm font-medium">{t.role}</p>
+                <p className="text-xs text-on-surface-mute">{t.company}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      {/* CTA */}
+      <Section id="cta" className="!pt-0">
+        <div className="relative overflow-hidden rounded-3xl bg-surface px-6 py-16 text-center md:px-16 md:py-24">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-1/2 top-0 h-64 w-64 -translate-x-1/2 rounded-full bg-accent/15 blur-3xl"
+          />
+          <span className="pill relative">Contact</span>
+          <h2 className="h2 relative mx-auto mt-8 max-w-2xl">
+            Got an idea worth building?
+          </h2>
+          <p className="relative mx-auto mt-6 max-w-xl text-sm leading-7 text-on-surface/70 md:text-base">
+            Whether it is a new product, a data problem or a role on your team, I would love to hear
+            about it. Send a message and I will get back to you within a day.
+          </p>
+          <div className="relative mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link to="/contact" className="btn-accent focus-ring group">
+              Start a conversation
+              <BsArrowRight className="transition-transform group-hover:translate-x-1" />
             </Link>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {skillGroups.flatMap((g) => g.items).slice(0, 14).map((s) => (
-              <span
-                key={s}
-                className="px-3 py-1.5 rounded-full text-xs bg-white/5 border border-white/10 text-white/70"
-              >
-                {s}
-              </span>
-            ))}
+            <Link to="/about" className="btn-ghost focus-ring">
+              See my experience
+            </Link>
+            <ResumeButton />
           </div>
         </div>
       </Section>
