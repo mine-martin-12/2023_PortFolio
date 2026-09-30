@@ -58,8 +58,12 @@ const Navbar = () => {
         <Link
           to="/"
           aria-label="Home"
-          className="focus-ring rounded-full font-display text-2xl font-semibold tracking-tighter text-primary"
+          className="italic focus-ring rounded-full font-display text-2xl font-semibold tracking-tighter text-primary"
         >
+          {/* <span className="flex items-end"> */}
+            {/* <img src="/logo.svg" alt="Martin" className="h-8 w-auto" /> */}
+              {/* <span className="text-accent">.</span> */}
+          {/* </span> */}
           martin<span className="text-accent">.</span>
         </Link>
 

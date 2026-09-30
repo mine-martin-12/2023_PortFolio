@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="mx-auto max-w-7xl rounded-2xl bg-surface px-6 py-12 md:rounded-3xl md:px-10">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <p className="font-display text-2xl font-semibold tracking-tighter text-primary">
+            <p className="italic font-display text-2xl font-semibold tracking-tighter text-primary">
               martin<span className="text-accent">.</span>
             </p>
             <p className="mt-3 flex items-center gap-2 text-sm text-on-surface/70">

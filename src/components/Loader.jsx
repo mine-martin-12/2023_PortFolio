@@ -33,7 +33,7 @@ const Loader = () => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
-          className="fixed inset-0 z-[9999] flex select-none flex-col items-center justify-center gap-10 bg-surface-tint"
+          className="italic fixed inset-0 z-[9999] flex select-none flex-col items-center justify-center gap-10 bg-surface-tint"
         >
           <span className="font-display text-5xl uppercase tracking-tighter text-primary">
             martin<span className="text-accent">.</span>
